@@ -1,0 +1,34 @@
+name: Antigravity PR Review
+
+on:
+  pull_request:
+    types: [opened, synchronize, reopened]
+
+permissions:
+  pull-requests: write
+  contents: read
+
+jobs:
+  review:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - Authenticate using a service account JSON key
+      - name: Authenticate to Google Cloud
+        uses: google-github-actions/auth@v2
+        with:
+          credentials_json: ${{ secrets.GCP_SA_KEY }} 
+
+      - name: Install uv
+        uses: astral-sh/setup-uv@v5
+
+      - name: Run Assistant
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          PR_NUMBER: ${{ github.event.pull_request.number }}
+          GCP_PROJECT_ID: ${{ vars.GCP_PROJECT_ID }}
+          GCP_LOCATION: ${{ vars.GCP_LOCATION || 'us-central1' }}
+          MODEL_NAME: ${{ vars.MODEL_NAME || 'gemini-flash-3.8' }}
+        run: uv run .github/scripts/pr_assistant.py
