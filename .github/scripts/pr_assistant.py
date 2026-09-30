@@ -16,8 +16,8 @@ async def main():
     pr_number = os.environ.get("PR_NUMBER")
     summary_path = os.environ.get("GITHUB_STEP_SUMMARY")
     gcp_project = os.environ.get("GCP_PROJECT_ID")
-    gcp_location = os.environ.get("GCP_LOCATION", "us-central1")
-    model_name = os.environ.get("MODEL_NAME", "gemini-flash-3.8")
+    gcp_location = os.environ.get("GCP_LOCATION", "global")
+    model_name = os.environ.get("MODEL_NAME", "gemini-3.8-flash")
 
     if not pr_number:
         print("Missing PR_NUMBER environment variable.", file=sys.stderr)

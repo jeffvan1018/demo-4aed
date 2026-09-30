@@ -31,6 +31,6 @@ jobs:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           PR_NUMBER: ${{ github.event.pull_request.number }}
           GCP_PROJECT_ID: ${{ vars.GCP_PROJECT_ID }}
-          GCP_LOCATION: ${{ vars.GCP_LOCATION || 'us-central1' }}
-          MODEL_NAME: ${{ vars.MODEL_NAME || 'gemini-flash-3.8' }}
+          GCP_LOCATION: ${{ vars.GCP_LOCATION || 'global' }}
+          MODEL_NAME: ${{ vars.MODEL_NAME || 'gemini-3.8-flash' }}
         run: uv run .github/scripts/pr_assistant.py
